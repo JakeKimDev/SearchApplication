@@ -1,0 +1,73 @@
+﻿<UserControl
+    x:Class="SearchApplication.Commons.DetailView_85"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:SearchApplication.Commons"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    
+    d:DesignWidth="400">
+    <Grid Background="#7F252434">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto" MinHeight="20"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="130"/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <TextBlock TextWrapping="Wrap" Text="Age Limit" d:LayoutOverrides="Width, Height" VerticalAlignment="Top" Margin="9,5,0,5" FontSize="17.333" FontWeight="Bold" Foreground="#FF8ECDFF"/>
+        <TextBlock TextWrapping="Wrap" Text="Booking Place" d:LayoutOverrides="Width, Height" Grid.Row="1" VerticalAlignment="Top" Margin="9,5,0,5" FontSize="17.333" FontWeight="Bold" Foreground="#FF8ECDFF"/>
+        <TextBlock TextWrapping="Wrap" Text="Discount Info" d:LayoutOverrides="Width, Height" Grid.Row="2" VerticalAlignment="Top" Margin="9,5,0,5" FontSize="17.333" FontWeight="Bold" Foreground="#FF8ECDFF"/>
+        <TextBlock TextWrapping="Wrap" Text="End Date" d:LayoutOverrides="Width, Height" Grid.Row="3" VerticalAlignment="Top" Margin="9,5,0,5" FontSize="17.333" FontWeight="Bold" Foreground="#FF8ECDFF"/>
+        <TextBlock TextWrapping="Wrap" Text="Homepage" d:LayoutOverrides="Width, Height" Grid.Row="4" VerticalAlignment="Top" Margin="9,5,0,5" FontSize="17.333" FontWeight="Bold" Foreground="#FF8ECDFF"/>
+        <TextBlock TextWrapping="Wrap" Text="Place" d:LayoutOverrides="Width, Height" Grid.Row="5" VerticalAlignment="Top" Margin="9,5,0,5" FontSize="17.333" FontWeight="Bold" Foreground="#FF8ECDFF"/>
+        <TextBlock TextWrapping="Wrap" Text="Start Date" d:LayoutOverrides="Width, Height" Grid.Row="6" VerticalAlignment="Top" Margin="9,5,0,5" FontSize="17.333" FontWeight="Bold" Foreground="#FF8ECDFF"/>
+        <TextBlock TextWrapping="Wrap" Text="Place Info" d:LayoutOverrides="Width, Height" Grid.Row="7" VerticalAlignment="Top" Margin="9,5,0,5" FontSize="17.333" FontWeight="Bold" Foreground="#FF8ECDFF"/>
+        <TextBlock TextWrapping="Wrap" Text="Play Time" d:LayoutOverrides="Width, Height" Grid.Row="8" VerticalAlignment="Top" Margin="9,5,0,5" FontSize="17.333" FontWeight="Bold" Foreground="#FF8ECDFF"/>
+        <TextBlock TextWrapping="Wrap" Text="Program" d:LayoutOverrides="Width, Height" VerticalAlignment="Top" Margin="9,5,0,5" FontSize="17.333" Grid.Row="9" FontWeight="Bold" Foreground="#FF8ECDFF"/>
+        <TextBlock TextWrapping="Wrap" Text="Spend Time" VerticalAlignment="Top" Margin="9,5,0,5" FontSize="17.333" Grid.Row="10" FontWeight="Bold" d:LayoutOverrides="Width" Foreground="#FF8ECDFF"/>
+        <TextBlock TextWrapping="Wrap" Text="Sponsor" VerticalAlignment="Top" Margin="9,5,0,5" FontSize="17.333" Grid.Row="11" FontWeight="Bold" d:LayoutOverrides="Width" Foreground="#FF8ECDFF"/>
+        <TextBlock TextWrapping="Wrap" Text="Sponsor Tel" VerticalAlignment="Top" Margin="9,5,0,5" FontSize="17.333" Grid.Row="12" FontWeight="Bold" d:LayoutOverrides="Width" Foreground="#FF8ECDFF"/>
+        <TextBlock TextWrapping="Wrap" Text="Sponesor2" VerticalAlignment="Top" Margin="9,5,0,5" FontSize="17.333" Grid.Row="13" FontWeight="Bold" d:LayoutOverrides="Width" Foreground="#FF8ECDFF"/>
+        <TextBlock TextWrapping="Wrap" Text="Tel" VerticalAlignment="Top" Margin="9,5,0,5" FontSize="17.333" Grid.Row="14" FontWeight="Bold" d:LayoutOverrides="Width" Foreground="#FF8ECDFF"/>
+        <TextBlock TextWrapping="Wrap" Text="Sub Event" VerticalAlignment="Top" Margin="9,5,0,5" FontSize="17.333" Grid.Row="15" FontWeight="Bold" d:LayoutOverrides="Width" Foreground="#FF8ECDFF"/>
+        <TextBlock TextWrapping="Wrap" Text="Use Fee" VerticalAlignment="Top" Margin="9,5,0,5" FontSize="17.333" Grid.Row="16" FontWeight="Bold" d:LayoutOverrides="Width" Foreground="#FF8ECDFF"/>
+        <TextBlock x:Name="txt_1" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="14.667" d:LayoutOverrides="Width" Grid.Column="1" Margin="10,9,0,5" Foreground="White"/>
+        <TextBlock x:Name="txt_2" TextWrapping="Wrap" Grid.Row="1" VerticalAlignment="Top" FontSize="14.667" d:LayoutOverrides="Width" Grid.Column="1" Margin="10,9,0,5" Foreground="White"/>
+        <TextBlock x:Name="txt_3" TextWrapping="Wrap" Grid.Row="2" VerticalAlignment="Top" FontSize="14.667" d:LayoutOverrides="Width" Grid.Column="1" Margin="10,9,0,5" Foreground="White"/>
+        <TextBlock x:Name="txt_4" TextWrapping="Wrap" Grid.Row="3" VerticalAlignment="Top" FontSize="14.667" d:LayoutOverrides="Width" Grid.Column="1" Margin="10,9,0,5" Foreground="White"/>
+        <TextBlock x:Name="txt_5" TextWrapping="Wrap" Grid.Row="4" VerticalAlignment="Top" FontSize="14.667" d:LayoutOverrides="Width" Grid.Column="1" Margin="10,9,0,5" Foreground="White"/>
+        <TextBlock x:Name="txt_6" TextWrapping="Wrap" Grid.Row="5" VerticalAlignment="Top" FontSize="14.667" d:LayoutOverrides="Width" Grid.Column="1" Margin="10,9,0,5" Foreground="White"/>
+        <TextBlock x:Name="txt_7" TextWrapping="Wrap" Grid.Row="6" VerticalAlignment="Top" FontSize="14.667" d:LayoutOverrides="Width" Grid.Column="1" Margin="10,9,0,5" Foreground="White"/>
+        <TextBlock x:Name="txt_8" TextWrapping="Wrap" Grid.Row="7" VerticalAlignment="Top" FontSize="14.667" d:LayoutOverrides="Width" Grid.Column="1" Margin="10,9,0,5" Foreground="White"/>
+        <TextBlock x:Name="txt_9" TextWrapping="Wrap" Grid.Row="8" VerticalAlignment="Top" FontSize="14.667" d:LayoutOverrides="Width" Grid.Column="1" Margin="10,9,0,5" Foreground="White"/>
+        <TextBlock x:Name="txt_10" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="14.667" Grid.Row="9" d:LayoutOverrides="Width" Grid.Column="1" Margin="10,9,0,5" Foreground="White"/>
+        <TextBlock x:Name="txt_11" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="14.667" Grid.Row="10" Grid.Column="1" Margin="10,9,0,5" d:LayoutOverrides="Width" Foreground="White"/>
+        <TextBlock x:Name="txt_12" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="14.667" Grid.Row="11" Grid.Column="1" Margin="10,9,0,5" d:LayoutOverrides="Width" Foreground="White"/>
+        <TextBlock x:Name="txt_13" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="14.667" Grid.Row="12" Grid.Column="1" Margin="10,9,0,5" d:LayoutOverrides="Width" Foreground="White"/>
+        <TextBlock x:Name="txt_14" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="14.667" Grid.Row="13" Grid.Column="1" Margin="10,9,0,5" d:LayoutOverrides="Width" Foreground="White"/>
+        <TextBlock x:Name="txt_15" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="14.667" Grid.Row="14" Grid.Column="1" Margin="10,9,0,5" d:LayoutOverrides="Width" Foreground="White"/>
+        <TextBlock x:Name="txt_16" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="14.667" Grid.Row="15" Grid.Column="1" Margin="10,9,0,5" d:LayoutOverrides="Width" Foreground="White"/>
+        <TextBlock x:Name="txt_17" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="14.667" Grid.Row="16" Grid.Column="1" Margin="10,9,0,5" d:LayoutOverrides="Width" Foreground="White"/>
+        <TextBlock x:Name="txt_18" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="14.667" Grid.Row="17" Grid.Column="1" Margin="10,9,0,0" Foreground="White" d:LayoutOverrides="Width"/>
+        <TextBlock TextWrapping="Wrap" Text="Address" VerticalAlignment="Top" FontSize="17.333" Grid.Row="17" FontWeight="Bold" Foreground="#FF8ECDFF" Margin="10,5,0,0" d:LayoutOverrides="Width"/>
+    </Grid>
+</UserControl>
