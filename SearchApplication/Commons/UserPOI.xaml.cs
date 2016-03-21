@@ -22,7 +22,7 @@ namespace SearchApplication.Commons
     public sealed partial class UserPOI : UserControl
     {
         public UserPOI()
-        {
+        { 
             this.InitializeComponent();
            
         }
