@@ -93,6 +93,7 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <None Include="project.json" />
+    <None Include="dataList.xlsx" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App.xaml.cs">
@@ -148,6 +149,7 @@
     </Compile>
     <Compile Include="Models\Arc.cs" />
     <Compile Include="Models\ArcHelper.cs" />
+    <Compile Include="Models\AreaDataModel.cs" />
     <Compile Include="Models\DetailInfo.cs" />
     <Compile Include="Models\KoreaAreaCode.cs" />
     <Compile Include="Models\KoreaLocation.cs" />

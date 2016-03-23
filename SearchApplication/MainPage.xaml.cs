@@ -28,8 +28,10 @@ namespace SearchApplication
     /// </summary>
     public sealed partial class MainPage : Page
     {
-        public static String ServiceKey = "f85ybkyCCEvPNrtvQhxmbxiRNdcFNzHxlz0v7Gev1nU%2B8kRcuaEKbv%2FwMRVuvU1Ah6Rv1GGFMl4W95eGhtnr7Q%3D%3D"; // Open API Service Key
+        public static String ServiceKey = "6Gp0b%2Frx8wsUsUBLObMt54JbaM4c8npnLTK6F5Eo2vkYKQdG66lrABY3scRuoJFmUFb4%2B0kn36vNJycBPMn9yw%3D%3D"; // Open API Service Key
 
+
+        //http://newsky2.kma.go.kr/service/MiddleFrcstInfoService
         //"EngService";
         //"JpnService";
         public static String SetLanguage = "EngService"; // Service 지역
@@ -41,8 +43,10 @@ namespace SearchApplication
             LoadService(); // 기본 서비스 정보
             btn_Search.Click += Btn_Search_Click;
             btn_Research.Click += Btn_Research_Click;
-           
+           // Request_Weather();
         }
+
+
 
         private void Umc_MapControl_eReceiveMsg(Windows.UI.Xaml.Controls.Maps.MapControl sender, object args)
         {
@@ -81,7 +85,19 @@ namespace SearchApplication
             string str = await Request_Json();
             ParseAreaJson(str);
         }
+        private async Task<string> Request_Weather()
+        {
+            // string url = "http://www.redmine.org/issues.json";
 
+            string url =
+             @"http://newsky2.kma.go.kr/service/SecndSrtpdFrcstInfoService2/ForecastGrib?" +
+             @"ServiceKey=" +ServiceKey + "&numOfRows=100&base_date="+DateTime.Now.ToString("yyyyMMdd")+"&base_time=0600&nx=55&ny=127&pageNo=1&_type=json";
+            HttpClient client = new HttpClient();
+            Task<string> getStringTask = client.GetStringAsync(url);
+            string result = await getStringTask;
+            return result;
+
+        }
         private async Task<string> Request_Json()
         {
            // string url = "http://www.redmine.org/issues.json";
