@@ -1,16 +1,23 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
+using System.IO.Compression;
 using System.Linq;
 using System.Net.Http;
 using System.Runtime.InteropServices.WindowsRuntime;
 using System.Threading.Tasks;
+
+using System.Xml.Linq;
 using Newtonsoft.Json.Linq;
 using SearchApplication.Commons;
 using SearchApplication.Models;
+using Windows.Data.Xml.Dom;
 using Windows.Devices.Geolocation;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
+using Windows.Storage;
+using Windows.Storage.Pickers;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
@@ -35,7 +42,7 @@ namespace SearchApplication
         //"EngService";
         //"JpnService";
         public static String SetLanguage = "EngService"; // Service 지역
-        
+        List<AreaDataModel> itemList = new List<AreaDataModel>();
         public MainPage()
         {
             this.InitializeComponent();
@@ -43,10 +50,136 @@ namespace SearchApplication
             LoadService(); // 기본 서비스 정보
             btn_Search.Click += Btn_Search_Click;
             btn_Research.Click += Btn_Research_Click;
-           // Request_Weather();
+            // Request_Weather();
+            FileLoad();
+
+            cb_Main.SelectionChanged += Cb_Main_SelectionChanged;
+            cb_Serv1.SelectionChanged += Cb_Serv1_SelectionChanged;
+            btn_Search1.Click += Btn_Search1_Click;
         }
 
+        private async void Btn_Search1_Click(object sender, RoutedEventArgs e)
+        {
 
+            String str1 = cb_Main.SelectedValue == null ? "" : cb_Main.SelectedValue.ToString();
+            String str2 = cb_Serv1.SelectedValue == null ?"": cb_Serv1.SelectedValue.ToString();
+            String str3 = cb_Serv2.SelectedValue == null ? "" : cb_Serv2.SelectedValue.ToString();
+           
+
+
+            AreaDataModel item = itemList.Where(a => a.Step1 == str1 &&
+            a.Step2 == str2 &&
+            a.Step3 == str3).FirstOrDefault();
+
+            if (item != null)
+            {
+                String buf = await Request_Weather(item.X, item.Y);
+
+
+                //ParseWeatherJson(buf);
+                //umc_MapControl.SetLocation(Convert.ToDouble(item.Lng), Convert.ToDouble(item.Lat));
+                //String path =  "ms-appx:///Assets/img1";
+                //umc_MapControl.SetPOI(Convert.ToDouble(item.Lng), Convert.ToDouble(item.Lat), "노원구", path, path, null);
+
+
+                //for (int i = 0; i < itemList.Count(); i++)
+                //{
+
+                List<ResponsData> itemLists = ParseWeatherJson(buf);
+
+                if (itemLists != null && itemLists.Count() > 0)
+                {
+                    String sky = itemLists.Where(a => a.Category == "SKY").Select(a => a.ObsrValue).FirstOrDefault();
+                    String pty = itemLists.Where(a => a.Category == "PTY").Select(a => a.ObsrValue).FirstOrDefault();
+                    String RN1 = itemLists.Where(a => a.Category == "RN1").Select(a => a.ObsrValue).FirstOrDefault();
+                    String R06 = itemLists.Where(a => a.Category == "R06").Select(a => a.ObsrValue).FirstOrDefault();
+                    String S06 = itemLists.Where(a => a.Category == "S06").Select(a => a.ObsrValue).FirstOrDefault();
+                    String LGT = itemLists.Where(a => a.Category == "LGT").Select(a => a.ObsrValue).FirstOrDefault();
+                    String UUU = itemLists.Where(a => a.Category == "UUU").Select(a => a.ObsrValue).FirstOrDefault();
+                    String VVV = itemLists.Where(a => a.Category == "VVV").Select(a => a.ObsrValue).FirstOrDefault();
+
+                    sky = String.IsNullOrEmpty(sky) == true ? "" : sky;
+                    pty = String.IsNullOrEmpty(pty) == true ? "" : pty;
+                    RN1 = String.IsNullOrEmpty(RN1) == true ? "" : RN1;
+                    R06 = String.IsNullOrEmpty(R06) == true ? "" : R06;
+                    S06 = String.IsNullOrEmpty(S06) == true ? "" : S06;
+                    LGT = String.IsNullOrEmpty(LGT) == true ? "" : LGT;
+                    UUU = String.IsNullOrEmpty(UUU) == true ? "" : UUU;
+                    VVV = String.IsNullOrEmpty(VVV) == true ? "" : VVV;
+
+
+                    umc_MapControl.SetPOI(Convert.ToDouble(item.Lng), Convert.ToDouble(item.Lat), "", sky, pty, RN1, S06, LGT, UUU, VVV);
+
+                    umc_MapControl.SetLocation(Convert.ToDouble(item.Lng), Convert.ToDouble(item.Lat));
+                    //    }
+                    //}
+                }
+            }
+        }
+
+        private void Cb_Serv1_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
+            
+            if(cb_Serv1.SelectedValue != null && cb_Main.SelectedValue != null)
+            cb_Serv2.ItemsSource = itemList.Where(a => a.Step1 == cb_Main.SelectedValue.ToString()
+                                                    && a.Step2 == cb_Serv1.SelectedValue.ToString()
+            ).GroupBy(a => a.Step3);
+            else
+            {
+                cb_Serv2.ItemsSource = null;
+            }
+        }
+
+        private void Cb_Main_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (cb_Main.SelectedValue != null)
+
+            cb_Serv1.ItemsSource = itemList.Where(a => a.Step1 == cb_Main.SelectedValue.ToString()).GroupBy(a => a.Step2 );
+           
+        }
+
+        private async void FileLoad()
+        {
+           itemList= await XmlParser.LoadFile();
+
+            if(itemList != null)
+            cb_Main.ItemsSource = itemList.GroupBy(a => a.Step1);
+
+
+            //List<AreaDataModel> subList = itemList.Where(a =>a.Step3 == "").ToList<AreaDataModel>();
+
+            //for (int i = 0; i < subList.Count(); i++)
+            //{
+            //    String buf = await Request_Weather(subList[i].X, subList[i].Y);
+            //    List<ResponsData> itemLists = ParseWeatherJson(buf);
+
+            //    if (itemLists != null && itemLists.Count() > 0)
+            //    {
+            //        String sky = itemLists.Where(a => a.Category == "SKY").Select(a => a.ObsrValue).FirstOrDefault();
+            //        String pty = itemLists.Where(a => a.Category == "PTY").Select(a => a.ObsrValue).FirstOrDefault();
+            //        String RN1 = itemLists.Where(a => a.Category == "RN1").Select(a => a.ObsrValue).FirstOrDefault();
+            //        String R06 = itemLists.Where(a => a.Category == "R06").Select(a => a.ObsrValue).FirstOrDefault();
+            //        String S06 = itemLists.Where(a => a.Category == "S06").Select(a => a.ObsrValue).FirstOrDefault();
+            //        String LGT = itemLists.Where(a => a.Category == "LGT").Select(a => a.ObsrValue).FirstOrDefault();
+            //        String UUU = itemLists.Where(a => a.Category == "UUU").Select(a => a.ObsrValue).FirstOrDefault();
+            //        String VVV = itemLists.Where(a => a.Category == "VVV").Select(a => a.ObsrValue).FirstOrDefault();
+
+            //        sky = String.IsNullOrEmpty(sky) == true ? "" : sky;
+            //        pty = String.IsNullOrEmpty(pty) == true ? "" : pty;
+            //        RN1 = String.IsNullOrEmpty(RN1) == true ? "" : RN1;
+            //        R06 = String.IsNullOrEmpty(R06) == true ? "" : R06;
+            //        S06 = String.IsNullOrEmpty(S06) == true ? "" : S06;
+            //        LGT = String.IsNullOrEmpty(LGT) == true ? "" : LGT;
+            //        UUU = String.IsNullOrEmpty(UUU) == true ? "" : UUU;
+            //        VVV = String.IsNullOrEmpty(VVV) == true ? "" : VVV;
+
+
+            //        umc_MapControl.SetPOI(Convert.ToDouble(subList[i].Lng), Convert.ToDouble(subList[i].Lat), subList[i].Step2, sky, pty, RN1, S06, LGT, UUU, VVV);
+            //    }
+            //}
+        }
+       
 
         private void Umc_MapControl_eReceiveMsg(Windows.UI.Xaml.Controls.Maps.MapControl sender, object args)
         {
@@ -85,18 +218,51 @@ namespace SearchApplication
             string str = await Request_Json();
             ParseAreaJson(str);
         }
-        private async Task<string> Request_Weather()
+        private async Task<string> Request_Weather(String nx, String ny)
         {
             // string url = "http://www.redmine.org/issues.json";
 
             string url =
              @"http://newsky2.kma.go.kr/service/SecndSrtpdFrcstInfoService2/ForecastGrib?" +
-             @"ServiceKey=" +ServiceKey + "&numOfRows=100&base_date="+DateTime.Now.ToString("yyyyMMdd")+"&base_time=0600&nx=55&ny=127&pageNo=1&_type=json";
+             @"ServiceKey=" +ServiceKey + "&numOfRows=100&base_date="+DateTime.Now.ToString("yyyyMMdd")+"&base_time="+ DateTime.Now.AddHours(-1).ToString("HH00")
+             +"&nx="+nx+"&ny="+ny+"&pageNo=1&_type=json";
             HttpClient client = new HttpClient();
             Task<string> getStringTask = client.GetStringAsync(url);
             string result = await getStringTask;
             return result;
 
+        }
+
+
+        private List<ResponsData> ParseWeatherJson(String json)
+        {
+            //List<AreaDataModel> koreaAreaCodeList = new List<AreaDataModel>();
+
+            JObject obj = JObject.Parse(json);
+            List<ResponsData> itemList = new List<ResponsData>();
+            if (obj["response"]["header"]["resultMsg"].ToString() == "OK")
+            {
+                JArray array = JArray.Parse(obj["response"]["body"]["items"]["item"].ToString());
+                foreach (JObject itemObj in array)
+                {
+                    ResponsData area = new ResponsData();
+                    area.BaseDate = itemObj["baseDate"].ToString();
+                    area.BaseTime = itemObj["baseTime"].ToString();
+                    area.Category = itemObj["category"].ToString();
+                    area.NX = itemObj["nx"].ToString();
+                    area.NY = itemObj["ny"].ToString();
+                    area.ObsrValue = itemObj["obsrValue"].ToString();
+
+
+
+                    itemList.Add(area);
+
+                }
+
+                
+            }
+            //lb_List.Items.Add(area);
+            return itemList;
         }
         private async Task<string> Request_Json()
         {

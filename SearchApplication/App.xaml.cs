@@ -97,6 +97,8 @@ namespace SearchApplication
             throw new Exception("Failed to load Page " + e.SourcePageType.FullName);
         }
 
+    
+
         /// <summary>
         /// 응용 프로그램 실행이 일시 중단된 경우 호출됩니다.  응용 프로그램이 종료될지
         /// 또는 메모리 콘텐츠를 변경하지 않고 다시 시작할지 여부를 결정하지 않은 채

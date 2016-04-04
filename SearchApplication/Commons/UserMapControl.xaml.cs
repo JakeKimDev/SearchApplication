@@ -258,6 +258,21 @@ namespace SearchApplication.Commons
          
 
         }
+
+
+        public void SetPOI(double latitude, double longitude, String title, String Sky, String Pty, String Rn1, String S06, String Lgt, String Uuu, String Vvv)
+        {
+            BasicGeoposition snPosition = new BasicGeoposition() { Latitude = latitude, Longitude = longitude };
+            Geopoint snPoint = new Geopoint(snPosition);
+
+            WeatherControl weather = new WeatherControl();
+            weather.SetItem(Sky, Pty, Rn1, S06, Lgt, Uuu, Vvv, title);
+            weather.Width = 80;
+            weather.Height = 80;
+            mc_MapControl.Children.Add(weather);
+            MapControl.SetLocation(weather, snPoint);
+
+        }
         public void AddPointItem(double latitude, double longitude,String imgPath, String title, string servPath, KoreaLocation location)
         {
 

@@ -7,24 +7,49 @@
     xmlns:Commons="using:SearchApplication.Commons"
     x:Class="SearchApplication.MainPage"   xmlns:Maps="using:Windows.UI.Xaml.Controls.Maps" 
     mc:Ignorable="d"   >
+    <Page.Resources>
+        <DataTemplate x:Key="ItemTemplateArea">
+            <StackPanel Orientation="Horizontal">
+                <TextBlock Text="{Binding BaseDate}" Margin="5,0"/>
+                <TextBlock Text="{Binding BaseTime}" Margin="5,0"/>
+                <TextBlock Text="{Binding Category}" Margin="5,0"/>
+                <TextBlock Text="{Binding NX}" Margin="5,0"/>
+                <TextBlock Text="{Binding NY}" Margin="5,0"/>
+                <TextBlock Text="{Binding ObsrValue}" Margin="5,0"/>
+            </StackPanel>
+        </DataTemplate>
+    </Page.Resources>
     <Grid Background="Black">
-        
+
         <SplitView x:Name="sv_Open" PanePlacement="Left" OpenPaneLength="300" IsPaneOpen="{Binding IsChecked, ElementName=tbtn_Menu,Mode=TwoWay}" DisplayMode="CompactOverlay" PaneBackground="#7F000000">
             <SplitView.Pane>
                 <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="100"/>
                         <RowDefinition Height="100"/>
+                        <RowDefinition Height="100"/>
+                        <RowDefinition Height="100"/>
+                        <RowDefinition Height="100"/>
+                        <RowDefinition Height="100"/>
+
                         <RowDefinition Height="3*"/>
                     </Grid.RowDefinitions>
                     <ComboBox x:Name="cb_AreaSelect" HorizontalAlignment="Stretch" DisplayMemberPath="Name" SelectedValuePath="Code" PlaceholderText="지역 선택" Margin="50,50,0,0" VerticalAlignment="Top" d:LayoutOverrides="Height, LeftPosition, RightPosition, TopPosition, BottomPosition"/>
 
                     <ComboBox x:Name="cb_ServiceSelect" HorizontalAlignment="Stretch" DisplayMemberPath="Name" SelectedValuePath="Code" PlaceholderText="관광타입" Margin="50,0,0,0" VerticalAlignment="Top" d:LayoutOverrides="LeftPosition, RightPosition, TopPosition, BottomPosition"/>
+
+                    <ComboBox x:Name="cb_Main" Grid.Row="3" Width="100" DisplayMemberPath="Key" SelectedValuePath="Key"/>
+                    <ComboBox x:Name="cb_Serv1" Grid.Row="3" Width="100" Margin="0,50,0,0" DisplayMemberPath="Key" SelectedValuePath="Key"/>
+                    <ComboBox x:Name="cb_Serv2" Grid.Row="4" Width="100" Margin="0,0,0,0" DisplayMemberPath="Key" SelectedValuePath="Key"/>
+
+
+
                     <Button x:Name="btn_Search" Content="Search" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0" d:LayoutOverrides="LeftPosition, RightPosition, TopPosition, BottomPosition" Grid.Row="1" Background="#7FFFFFFF"/>
                     <ToggleButton x:Name="tbtn_Menu" VerticalAlignment="Top" Width="50" Background="White" >
                         <SymbolIcon Symbol="ShowBcc" />
                     </ToggleButton>
-
+                    <Button x:Name="btn_Search1" Content="Search" VerticalAlignment="Bottom" Grid.Row="4" Background="White"/>
+                    <ListBox x:Name="lb_List" Grid.Row="6" ItemTemplate="{StaticResource ItemTemplateArea}"/>
                 </Grid>
             </SplitView.Pane>
             <SplitView.Content>
